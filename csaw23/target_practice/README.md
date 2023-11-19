@@ -1,46 +1,30 @@
 # Target Practice
+We are given a netcat command.
+```bash
+nc intro.csaw.io 31138
+```
+Here's a look at the output.
 
-The challange provides us with a ELF binary and a nc command
+![](https://github.com/0xNev/CTF-Writeups/csaw23/1.png)
 
-We can assume that the nc server is running the binary we are provided, to be sure of this we can do a quick check on both
+We were also given the binary, lets run some checks on it
+```bash
+file target_practice
+```
+```bash
+pwn checksec target_practice
+```
+![](https://github.com/0xNev/CTF-Writeups/csaw23/2.png)
 
-By running 'nc intro.csaw.io 31138' in our terminal we receive the following message
+Nothing out of the ordinary, now lets decomplile the binary in Ghidra.
 
+![](https://github.com/0xNev/CTF-Writeups/csaw23/3.png)
 
-We see the program is expecting an input, let's try something random
+Taking a look at the main function, we see that the program is taking an input then making a function call to the referenced input. Lets see if we can find a useful function to jump to.
+Taking a closer look, we find a function named 'cat_flag'
 
+![](https://github.com/0xNev/CTF-Writeups/csaw23/4.png)
 
-After sending the input the connection closes
+The function makes a syscall which will print the flag, this is exactly what we need. We'll copy the address to the function then use that as our input. Here's the address to the 'cat_flag' function - '00400717'
 
-
-Lets take a look at the binary we were given, I first ran strings to see if we could get anything useful
-
-
-Not much, other than 'cat flag' but that's not really useful
-
-We'll take a deeper look with ghidra
-
-Here is the main function decompiled from ghidra
-
-
-
-
-The program is taking our input and storing it to the local_20 varible. Looking a few lines past that we see the program is referincing our input as a pointer then making a function call too the pointer. Knowing this if we can find a useful function in the code we might be able to call it. 
-
-Further analysis of the binary I found the function which ghidra decompiled named 'cat_flag'. Here is what the function looks like.
-
-void cat_flag(void)
-{
-    system("cat /flag.txt");
-    return;
-
-}
-
-The function makes a sys call to print the flag. This is exactly what we needed. We can go ahead amd copy the address to the function and try it as our input. 
-
-
-
-
-
-
-
+![](https://github.com/0xNev/CTF-Writeups/csaw23/5.png)
