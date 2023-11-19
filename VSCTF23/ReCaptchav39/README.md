@@ -4,7 +4,7 @@ We are given a link to a website asking to solve Recaptcha v39
 
 Upon visiting the link, the website tells us we need to solve the area of 100 images provided each within 5 seconds. Below is an exapmple of an image
 
-![](https://github.com/0xNev/CTF-Writeups/blob/main/vsctf23/ReCaptchav39/1.png?raw=true)
+![](https://github.com/0xNev/CTF-Writeups/blob/main/VSCTF23/ReCaptchav39/1.png?raw=true)
 
 Upon checking network in devtools we see the captcha process happens over websocket. We'll make a Python script that automates the captcha.
 
