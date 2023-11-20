@@ -41,7 +41,7 @@ for x in hexed.split():
 	flag = flag + unhex(x).decode()[::-1]
 
 print(flag)
-```
+```  
 ```
 HTB{why_d1d_1_s4v3_th3_fl4g_0n_th3_5t4ck?!}
 ```
